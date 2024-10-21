@@ -1,23 +1,20 @@
 "use client";
-import { OrbitControls, useGLTF } from "@react-three/drei";
-import styles from "./page.module.css";
-import { Canvas } from "@react-three/fiber";
-import { Suspense } from "react";
-
-const Model = () => {
-    const model = useGLTF("/models/diels_alder_regiochemistry/scene.gltf");
-    return <primitive object={model.scene} />;
-};
+import styles from "../styles/page.module.css";
+import React, { useState } from "react";
+import { Panel } from "@/components/Panel";
+import { Frame } from "@/components/Frame";
 
 export default function Home() {
+    const [panelInfo, setPanelInfo] = useState<{
+        uuid: string;
+        name: string;
+    } | null>(null);
+    const [isGrabbing, setIsGrabbing] = useState<boolean>(false);
+
     return (
         <div className={styles.page}>
-            <Canvas>
-                <Suspense>
-                    <Model />
-                    <OrbitControls />
-                </Suspense>
-            </Canvas>
+            <Frame setPanelInfo={setPanelInfo} />
+            <Panel panelInfo={panelInfo} />
         </div>
     );
 }
