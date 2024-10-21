@@ -12,7 +12,8 @@ export const Frame: React.FC<{
             name: string;
         } | null>
     >;
-}> = ({ setPanelInfo }) => {
+    isAnimated: boolean;
+}> = ({ setPanelInfo, isAnimated }) => {
     const [isGrabbing, setIsGrabbing] = useState<boolean>(false);
 
     return (
@@ -25,7 +26,7 @@ export const Frame: React.FC<{
             <ambientLight />
             <directionalLight position={[5, 5, 5]} intensity={1} />
             <React.Suspense fallback={<Loader />}>
-                <Model setPanelInfo={setPanelInfo} />
+                <Model setPanelInfo={setPanelInfo} isAnimated={isAnimated} />
                 <Environment preset="sunset" />
                 <OrbitControls
                     onStart={() => setIsGrabbing(true)}

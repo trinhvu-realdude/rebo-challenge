@@ -9,12 +9,12 @@ export default function Home() {
         uuid: string;
         name: string;
     } | null>(null);
-    const [isGrabbing, setIsGrabbing] = useState<boolean>(false);
+    const [isAnimated, setIsAnimated] = useState(false);
 
     return (
         <div className={styles.page}>
-            <Frame setPanelInfo={setPanelInfo} />
-            <Panel panelInfo={panelInfo} />
+            <Frame setPanelInfo={setPanelInfo} isAnimated={isAnimated} />
+            <Panel panelInfo={panelInfo} setIsAnimated={setIsAnimated} />
         </div>
     );
 }
