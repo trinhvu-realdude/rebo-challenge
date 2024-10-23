@@ -1,0 +1,8 @@
+.panel {
+    width: 30vw;
+    padding: 20px;
+    background-color: antiquewhite;
+    margin-left: 10px;
+    margin-right: 20px;
+    border-radius: .25rem;
+}

@@ -1,12 +1,11 @@
-import { useFrame, useLoader } from "@react-three/fiber";
-import React, { useEffect, useState } from "react";
-import { AnimationMixer, Object3D } from "three";
-import { GLTFLoader } from "three/examples/jsm/Addons.js";
+import { extend, useFrame, useLoader } from "@react-three/fiber";
+import React, { useEffect } from "react";
+import { AnimationMixer, Mesh, Object3D, Object3DEventMap } from "three";
+import { GLTFLoader, OutlineEffect } from "three/examples/jsm/Addons.js";
 
+extend({ OutlineEffect });
 export const Model: React.FC<{
-    setPanelInfo: React.Dispatch<
-        React.SetStateAction<{ uuid: string; name: string } | null>
-    >;
+    setPanelInfo: React.Dispatch<React.SetStateAction<Mesh | null>>;
     isAnimated: boolean;
 }> = ({ setPanelInfo, isAnimated }) => {
     const { scene, animations } = useLoader(
@@ -29,9 +28,7 @@ export const Model: React.FC<{
         }
 
         return () => {
-            if (action) {
-                action.stop(); // Clean up on unmount
-            }
+            mixer.stopAllAction();
         };
     }, [animations, isAnimated]);
 
@@ -45,10 +42,13 @@ export const Model: React.FC<{
     const handleClick = (e: any) => {
         // Extract information about the clicked part of the model
         const object = e.object;
-        setPanelInfo({
-            uuid: object.uuid,
-            name: object.name,
-        });
+
+        // setSelectedObject(object.uuid);
+
+        console.log(object.name, object.uuid);
+        console.log(object.material.color);
+
+        setPanelInfo(object);
     };
     return (
         <primitive

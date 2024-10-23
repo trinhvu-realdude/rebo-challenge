@@ -1,3 +1,5 @@
 .page {
-    height: 80vh;
+    display: flex;
+    width: 100vw;
+    height: 98vh;
 }

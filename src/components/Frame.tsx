@@ -4,14 +4,10 @@ import React, { useState } from "react";
 import { Model } from "./Model";
 import { Environment, OrbitControls } from "@react-three/drei";
 import { Loader } from "./Loader";
+import { Mesh, Object3D, Object3DEventMap } from "three";
 
 export const Frame: React.FC<{
-    setPanelInfo: React.Dispatch<
-        React.SetStateAction<{
-            uuid: string;
-            name: string;
-        } | null>
-    >;
+    setPanelInfo: React.Dispatch<React.SetStateAction<Mesh | null>>;
     isAnimated: boolean;
 }> = ({ setPanelInfo, isAnimated }) => {
     const [isGrabbing, setIsGrabbing] = useState<boolean>(false);
@@ -29,6 +25,7 @@ export const Frame: React.FC<{
                 <Model setPanelInfo={setPanelInfo} isAnimated={isAnimated} />
                 <Environment preset="sunset" />
                 <OrbitControls
+                    enableRotate={true}
                     onStart={() => setIsGrabbing(true)}
                     onEnd={() => setIsGrabbing(false)}
                 />
