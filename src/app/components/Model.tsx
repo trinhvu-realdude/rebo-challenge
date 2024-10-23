@@ -1,13 +1,12 @@
+import { useAppContext } from "@/app/context";
 import { extend, useFrame, useLoader } from "@react-three/fiber";
 import React, { useEffect } from "react";
 import { AnimationMixer, Mesh, Object3D, Object3DEventMap } from "three";
 import { GLTFLoader, OutlineEffect } from "three/examples/jsm/Addons.js";
 
 extend({ OutlineEffect });
-export const Model: React.FC<{
-    setPanelInfo: React.Dispatch<React.SetStateAction<Mesh | null>>;
-    isAnimated: boolean;
-}> = ({ setPanelInfo, isAnimated }) => {
+export const Model = () => {
+    const { setPanelInfo, isAnimated } = useAppContext();
     const { scene, animations } = useLoader(
         GLTFLoader,
         "/models/diels_alder_regiochemistry/scene.gltf"
@@ -43,10 +42,10 @@ export const Model: React.FC<{
         // Extract information about the clicked part of the model
         const object = e.object;
 
-        // setSelectedObject(object.uuid);
+        console.log(object);
 
-        console.log(object.name, object.uuid);
-        console.log(object.material.color);
+        // console.log(object.name, object.uuid);
+        // console.log(object.material.color);
 
         setPanelInfo(object);
     };
