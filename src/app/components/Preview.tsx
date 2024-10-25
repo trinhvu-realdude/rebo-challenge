@@ -15,7 +15,7 @@ export const Preview: React.FC<{
                     <directionalLight position={[5, 5, 5]} intensity={1} />
                     <primitive object={object3D.clone()} />
                     <Environment preset="sunset" />
-                    <OrbitControls enableZoom={true} enableRotate={true} />
+                    <OrbitControls />
                 </Canvas>
             )}
         </div>

@@ -5,7 +5,7 @@ import { useAppContext } from "@/app/context";
 import { modelInformation } from "../constants/constants";
 
 export const Panel = () => {
-    const { panelInfo, setIsAnimated } = useAppContext();
+    const { panelInfo, isAnimated, setIsAnimated } = useAppContext();
 
     const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setIsAnimated(e.target.value === "animation");
@@ -17,20 +17,24 @@ export const Panel = () => {
                 <option value="static">Static</option>
                 <option value="animation">Animation</option>
             </select>
+            {isAnimated && <button>Play</button>}
             {/* <p>Interaction: {interaction}</p> */}
             {panelInfo ? (
                 <>
                     {modelInformation && (
-                        <div>
-                            <p>Model: {modelInformation.title}</p>
+                        <div className={styles.panelInfo}>
                             <p>
-                                Author:{" "}
+                                <strong>Model: </strong>
+                                {modelInformation.title}
+                            </p>
+                            <p>
+                                <strong>Author: </strong>
                                 <a href={modelInformation.author.url}>
                                     {modelInformation.author.name}
                                 </a>
                             </p>
                             <p>
-                                Source:{" "}
+                                <strong>Source: </strong>
                                 <a
                                     href={modelInformation.source}
                                     target="_blank"
@@ -39,7 +43,7 @@ export const Panel = () => {
                                 </a>
                             </p>
                             <p>
-                                License:{" "}
+                                <strong>License: </strong>
                                 <a
                                     href={modelInformation.license.url}
                                     target="_blank"
@@ -47,11 +51,17 @@ export const Panel = () => {
                                     {modelInformation.license.type}
                                 </a>
                             </p>
-                            <p>Requirements: {modelInformation.requirements}</p>
+                            <p>
+                                <strong>Requirements: </strong>
+                                {modelInformation.requirements}
+                            </p>
                         </div>
                     )}
                     <p>
-                        You just clicked to <strong>{panelInfo.name}</strong>
+                        <i>
+                            You just clicked to{" "}
+                            <strong>{panelInfo.name}</strong>
+                        </i>
                     </p>
                     <Preview object3D={panelInfo} />
                 </>

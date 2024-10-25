@@ -8,6 +8,8 @@ type AppState = {
     setIsAnimated: React.Dispatch<React.SetStateAction<boolean>>;
     interaction: string | null;
     setInteraction: React.Dispatch<React.SetStateAction<string | null>>;
+    isGrabbing: boolean;
+    setIsGrabbing: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const AppContext = createContext<AppState | undefined>(undefined);
@@ -18,6 +20,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
     const [panelInfo, setPanelInfo] = useState<Mesh | null>(null);
     const [isAnimated, setIsAnimated] = useState(false);
     const [interaction, setInteraction] = useState<string | null>(null);
+    const [isGrabbing, setIsGrabbing] = useState<boolean>(false);
 
     return (
         <AppContext.Provider
@@ -28,6 +31,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
                 setIsAnimated,
                 interaction,
                 setInteraction,
+                isGrabbing,
+                setIsGrabbing,
             }}
         >
             {children}
