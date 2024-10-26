@@ -1,6 +1,6 @@
 "use client";
 import styles from "../app/styles/page.module.css";
-import React, { useState } from "react";
+import React from "react";
 import { AppProvider } from "./context";
 import { Frame } from "./components/Frame";
 import { Panel } from "./components/Panel";

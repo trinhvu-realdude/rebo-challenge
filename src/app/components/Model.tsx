@@ -12,7 +12,6 @@ export const Model = () => {
     );
 
     const animationMixerRef = useRef<AnimationMixer | null>(null);
-    const actionsRef = useRef<AnimationAction[]>([]);
 
     useEffect(() => {
         // Initialize the AnimationMixer once with the scene
