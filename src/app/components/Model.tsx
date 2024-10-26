@@ -1,7 +1,7 @@
 import { useAppContext } from "@/app/context";
-import { useFrame, useLoader } from "@react-three/fiber";
+import { ThreeEvent, useFrame, useLoader } from "@react-three/fiber";
 import React, { useEffect, useRef } from "react";
-import { AnimationMixer } from "three";
+import { AnimationMixer, Mesh } from "three";
 import { GLTFLoader } from "three/examples/jsm/Addons.js";
 
 export const Model = () => {
@@ -41,15 +41,13 @@ export const Model = () => {
         }
     });
 
-    const handleClick = (e: any) => {
-        const object = e.object;
-        setPanelInfo(object);
-    };
-
     return (
         <primitive
             object={scene}
-            onClick={handleClick}
+            onClick={(e: ThreeEvent<MouseEvent>) => {
+                const object = e.object as Mesh;
+                setPanelInfo(object);
+            }}
             castShadow
             receiveShadow
         />
