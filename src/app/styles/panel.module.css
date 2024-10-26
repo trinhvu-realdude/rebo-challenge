@@ -7,6 +7,12 @@
     border-radius: 0.25rem;
 }
 
+.selectGroup select {
+    padding: 5px;
+    border-radius: 0.25rem;
+    margin-right: 10px;
+}
+
 .panelInfo {
     border: 1px solid black;
     padding: 0 10px;
@@ -21,4 +27,17 @@
 
 .panelInfo a:hover {
     text-decoration: underline;
+}
+
+.btnGroup {
+    padding: 10px 0;
+}
+
+.btnGroup > button {
+    cursor: pointer;
+    width: 5rem;
+    margin-right: 10px;
+    border-radius: 0.25rem;
+    border: 1px solid black;
+    padding: 5px;
 }

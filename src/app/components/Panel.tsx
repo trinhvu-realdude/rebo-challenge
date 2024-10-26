@@ -5,20 +5,46 @@ import { useAppContext } from "@/app/context";
 import { modelInformation } from "../constants/constants";
 
 export const Panel = () => {
-    const { panelInfo, isAnimated, setIsAnimated } = useAppContext();
-
-    const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setIsAnimated(e.target.value === "animation");
-    };
+    const { panelInfo, isAnimated, setIsAnimated, setIsPlaying, isPlaying } =
+        useAppContext();
 
     return (
         <div className={styles.panel}>
-            <select name="status" onChange={handleSelectChange}>
-                <option value="static">Static</option>
-                <option value="animation">Animation</option>
-            </select>
-            {isAnimated && <button>Play</button>}
-            {/* <p>Interaction: {interaction}</p> */}
+            <div className={styles.selectGroup}>
+                <select
+                    name="status"
+                    onChange={(e) =>
+                        setIsAnimated(e.target.value === "animation")
+                    }
+                >
+                    <option value="static">Static</option>
+                    <option value="animation">Animation</option>
+                </select>
+            </div>
+
+            {isAnimated && (
+                <div className={styles.btnGroup}>
+                    <button
+                        style={{
+                            backgroundColor: isPlaying ? "green" : "",
+                            color: isPlaying ? "white" : "",
+                        }}
+                        onClick={() => setIsPlaying(true)}
+                    >
+                        Play
+                    </button>
+                    <button
+                        style={{
+                            backgroundColor: !isPlaying ? "red" : "",
+                            color: !isPlaying ? "white" : "",
+                        }}
+                        onClick={() => setIsPlaying(false)}
+                    >
+                        Stop
+                    </button>
+                </div>
+            )}
+
             {panelInfo ? (
                 <>
                     {modelInformation && (
