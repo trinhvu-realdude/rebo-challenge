@@ -1,7 +1,7 @@
 import { useAppContext } from "@/app/context";
 import { useFrame, useLoader } from "@react-three/fiber";
 import React, { useEffect, useRef } from "react";
-import { AnimationAction, AnimationMixer } from "three";
+import { AnimationMixer } from "three";
 import { GLTFLoader } from "three/examples/jsm/Addons.js";
 
 export const Model = () => {
