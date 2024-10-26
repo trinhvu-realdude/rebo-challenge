@@ -1,10 +1,9 @@
 import { useAppContext } from "@/app/context";
-import { extend, useFrame, useLoader } from "@react-three/fiber";
-import React from "react";
+import { useFrame, useLoader } from "@react-three/fiber";
+import React, { useEffect, useRef } from "react";
 import { AnimationMixer } from "three";
-import { GLTFLoader, OutlineEffect } from "three/examples/jsm/Addons.js";
+import { GLTFLoader } from "three/examples/jsm/Addons.js";
 
-extend({ OutlineEffect });
 export const Model = () => {
     const { setPanelInfo, isAnimated } = useAppContext();
     const { scene, animations } = useLoader(
@@ -12,29 +11,39 @@ export const Model = () => {
         "/models/diels_alder_regiochemistry/scene.gltf"
     );
 
-    const mixer = new AnimationMixer(scene);
+    const animationMixerRef = useRef<AnimationMixer | null>(null);
 
-    const actions = animations.map((clip) => mixer.clipAction(clip));
+    useEffect(() => {
+        // Initialize the AnimationMixer once
+        animationMixerRef.current = new AnimationMixer(scene);
 
-    // Start the animations
-    actions.forEach((action) => {
-        action.play();
-        action.setEffectiveTimeScale(2);
-    });
+        const actions = animations.map((clip) => {
+            const action = animationMixerRef.current!.clipAction(clip);
+            action.play();
+            action.setEffectiveTimeScale(2);
+            return action;
+        });
 
+        return () => {
+            actions.forEach((action) => action.stop());
+        };
+    }, [animations, scene]);
+
+    // Update mixer in the render loop
     useFrame((_, delta) => {
-        if (isAnimated) mixer.update(delta);
+        if (isAnimated && animationMixerRef.current)
+            animationMixerRef.current.update(delta);
     });
 
     const handleClick = (e: any) => {
         const object = e.object;
         setPanelInfo(object);
     };
+
     return (
         <primitive
             object={scene}
             onClick={handleClick}
-            // position={[0, 0, 0]}
             castShadow
             receiveShadow
         />
